@@ -63,7 +63,7 @@ With this message flashed to the session, you may now display it in your view(s)
 
 ```html
 @if (Session::has('flash_notification.message'))
-    <div class="alert {{ Session::get('flash_notification.level') }} data-alert">
+    <div class="alert-box {{ Session::get('flash_notification.level') }}" data-alert>
         {{ Session::get('flash_notification.message') }}
         <a href="#" class="close">&times;</a>
     </div>
