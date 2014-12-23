@@ -97,13 +97,15 @@ Because flash messages and overlays are so common, if you want, you may use (or 
 </div>
 
 <script src="js/vendor/jquery.js"></script>
-<script src="js/foundation/foundation.js"></script>
-
-<!-- This is only necessary if you do Flash::overlay('...') -->
-<script src="js/foundation/foundation.reveal.js"></script>
+<script src="js/foundation.min.js"></script>
 
 <script>
     $(document).foundation();
+</script>
+
+<!-- This is only necessary if you do Flash::overlay('...') -->
+<script>
+    $('#flash-overlay-modal').foundation('reveal', 'open');
 </script>
 
 </body>
