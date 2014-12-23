@@ -5,8 +5,14 @@
 First, pull in the package through Composer.
 
 ```js
+"repositories": [
+    {
+      "type": "vcs",
+      "url":  "https://github.com/damianlewis/flash.git"
+    }
+],
 "require": {
-    "laracasts/flash": "~1.0"
+    "laracasts/flash": "dev-master"
 }
 ```
 
@@ -41,10 +47,11 @@ public function store()
 
 You may also do:
 
+- `Flash::alert('Message')`
 - `Flash::info('Message')`
-- `Flash::success('Message')`
 - `Flash::error('Message')`
 - `Flash::warning('Message')`
+- `Flash::secondary('Message')`
 - `Flash::overlay('Modal Message', 'Modal Title')`
 
 Again, if using Laravel, this will set three keys in the session:
@@ -56,15 +63,14 @@ With this message flashed to the session, you may now display it in your view(s)
 
 ```html
 @if (Session::has('flash_notification.message'))
-    <div class="alert alert-{{ Session::get('flash_notification.level') }}">
-        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-
+    <div class="alert {{ Session::get('flash_notification.level') }} data-alert">
         {{ Session::get('flash_notification.message') }}
+        <a href="#" class="close">&times;</a>
     </div>
 @endif
 ```
 
-> Note that this package is optimized for use with Twitter Bootstrap.
+> Note that this package is optimized for use with Zurb Foundation.
 
 Because flash messages and overlays are so common, if you want, you may use (or modify) the views that are included with this package. Simply append to your layout view:
 
@@ -80,7 +86,7 @@ Because flash messages and overlays are so common, if you want, you may use (or 
 <head>
     <meta charset="UTF-8">
     <title>Document</title>
-    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/foundation.css">
 </head>
 <body>
 
@@ -90,12 +96,14 @@ Because flash messages and overlays are so common, if you want, you may use (or 
     <p>Welcome to my website...</p>
 </div>
 
-<script src="//code.jquery.com/jquery.js"></script>
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+<script src="js/vendor/jquery.js"></script>
+<script src="js/foundation/foundation.js"></script>
 
 <!-- This is only necessary if you do Flash::overlay('...') -->
+<script src="js/foundation/foundation.reveal.js"></script>
+
 <script>
-    $('#flash-overlay-modal').modal();
+    $(document).foundation();
 </script>
 
 </body>
@@ -110,29 +118,4 @@ php artisan view:publish laracasts/flash
 
 The two package views will now be located in the `app/views/packages/laracasts/flash/' directory.
 
-```php
-Flash::message('Welcome aboard!');
-
-return Redirect::home();
-```
-
-![https://dl.dropboxusercontent.com/u/774859/GitHub-Repos/flash/message.png](https://dl.dropboxusercontent.com/u/774859/GitHub-Repos/flash/message.png)
-
-```php
-Flash::error('Sorry Please try again.');
-
-return Redirect::home();
-```
-
-![https://dl.dropboxusercontent.com/u/774859/GitHub-Repos/flash/error.png](https://dl.dropboxusercontent.com/u/774859/GitHub-Repos/flash/error.png)
-
-```php
-Flash::overlay('You are now a Laracasts member!');
-
-return Redirect::home();
-```
-
-![https://dl.dropboxusercontent.com/u/774859/GitHub-Repos/flash/overlay.png](https://dl.dropboxusercontent.com/u/774859/GitHub-Repos/flash/overlay.png)
-
 > [Learn exactly how to build this very package on Laracasts!](https://laracasts.com/lessons/flexible-flash-messages)
-
